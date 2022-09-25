@@ -9,10 +9,13 @@ interface LinkProps {
   text: string;
   to: string;
 }
-
 export class Link extends Block {
   constructor(props: LinkProps) {
     super('div', props);
+  }
+
+  navigate() {
+    this.props.router.go(this.props.to);
   }
 
   render() {

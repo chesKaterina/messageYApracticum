@@ -3,16 +3,18 @@ import template from './sign_up.hbs';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Link } from '../../components/link';
-import { removeError, setErrorMes, validate, validForm } from '../../utils/validator';
+import { removeError, setErrorMes, validate, validForm, isValidForm } from '../../utils/validator';
 import { InputBlock } from '../../components/inputBlock';
+import { SignupData } from '../../api/AuthAPI';
+import AuthController from '../../controllers/AuthController';
 
 interface SignUpProps {
 
 }
 
 export class SignUpPage extends Block {
-  constructor(props: SignUpProps) {
-    super('div', props);
+  constructor() {
+    super();
   }
 
   init() {
@@ -20,7 +22,7 @@ export class SignUpPage extends Block {
       label: 'Зарегистрироваться',
       events: {
         click: () => {
-          if (validForm('.form')) { window.location.href = '/chat' }
+          if (isValidForm('.form')) { this.onSubmit() }
         },
       },
       className: 'btn',
@@ -109,7 +111,7 @@ export class SignUpPage extends Block {
       },
       className: 'input_reg',
       type: 'password',
-      name: 'login',
+      name: 'password',
       text: 'Пароль'
 
     })
@@ -149,6 +151,11 @@ export class SignUpPage extends Block {
       text: 'Войти',
     })
   }
+
+onSubmit() {
+    const data = validForm('.form');
+    AuthController.signup(data as SignupData);
+}
 
   render() {
     return this.compile(template, this.props);

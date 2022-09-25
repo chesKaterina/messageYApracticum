@@ -86,6 +86,7 @@ export default class Block<Props extends Record<string, any> = any> {
   }
 
   private _render(): void {
+    this._removeEvents();
     const block = this.render();
     this._element.innerHTML = '';
     this._element.append(block);
@@ -189,6 +190,13 @@ export default class Block<Props extends Record<string, any> = any> {
     const { events = {} } = this.props as { events?: Record<string, () => void> };
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents(): void {
+    const { events = {} } = this.props as { events?: Record<string, () => void> };
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName]);
     });
   }
 

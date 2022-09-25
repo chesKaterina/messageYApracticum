@@ -2,14 +2,17 @@ import Block from '../../utils/Block';
 import template from './profile.hbs';
 import { Link } from '../../components/link';
 // import { User} from "../../components/user";
+import AuthController from '../../controllers/AuthController';
+import { UserController } from '../../controllers/UserController';
+import { withStore } from '../../utils/Store';
 
-interface ProfileProps {
+// interface ProfileProps {
 
-}
+// }
 
 export class ProfilePage extends Block {
-  constructor(props: ProfileProps) {
-    super('div', props);
+  constructor() {
+    super();
   }
 
   init() {
@@ -36,6 +39,8 @@ export class ProfilePage extends Block {
       to: '/signIn',
       text: 'Выйти',
     })
+
+
 
     // this.children.name = new User({
     //   className: 'right_box disabled_text',
